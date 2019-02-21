@@ -33,7 +33,7 @@ class WordNet():
 		inp2 = Masking(mask_value=0.0)(inp)
 		lstm = LSTM(hidden_size, return_sequences=False)(inp2)
 
-		# Attention Part (uncomment)
+		# Attention Part
 
 		lstm = LSTM(hidden_size, return_sequences=True)(lstm)
 		attention = TimeDistributed(Dense(1))(lstm)		# attention weights!!
