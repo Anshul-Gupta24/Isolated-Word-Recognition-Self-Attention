@@ -26,7 +26,7 @@ class WordNet():
 	def _audio_submodel(self):
         
 		hidden_size = 128
-		input_size = 80		# change depending on pretrained dnn
+		input_size = 80		# change depending on feature size
 		output_classes = 662
 
 		inp = Input((None, input_size))
@@ -35,11 +35,11 @@ class WordNet():
 
 		# Attention Part (uncomment)
 
-		#lstm = LSTM(hidden_size, return_sequences=True)(lstm)
-		#attention = TimeDistributed(Dense(1))(lstm)		# attention weights!!
-		#attention = Lambda(lambda x: softmax(x, axis=1))(attention)
-		#context = Multiply()([attention,lstm])
-		#out = Lambda(lambda x: K.sum(x,axis=1))(context)		
+		lstm = LSTM(hidden_size, return_sequences=True)(lstm)
+		attention = TimeDistributed(Dense(1))(lstm)		# attention weights!!
+		attention = Lambda(lambda x: softmax(x, axis=1))(attention)
+		context = Multiply()([attention,lstm])
+		out = Lambda(lambda x: K.sum(x,axis=1))(context)		
 		out = Dense(4096, activation='relu')(lstm)
 		out = Dense(output_classes, activation='softmax')(out)
 		model = Model(inputs=inp,outputs=[out])			
