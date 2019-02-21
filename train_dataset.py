@@ -19,6 +19,8 @@ if __name__ == '__main__':
     start = timeit.default_timer()
     BATCH_SIZE = 32
     FEATURE_SIZE = 80   
+    data_path = '/home/data.pkl'
+    save_path = '/home'
 
 
     model = WordNet()("train")
@@ -28,7 +30,7 @@ if __name__ == '__main__':
 
 
     # Get Data
-    with open('/home/data1/anshulg/google_synth_features2', 'rb') as fp:
+    with open(data_path, 'rb') as fp:
         data = pickle.load(fp) 
 
     lst = list(data.keys())
@@ -47,30 +49,7 @@ if __name__ == '__main__':
     print(len(lst))
     print(len(lst_train))
     print(len(lst_val))
-
-    # with open('/home/anshulg/WordNet/wordnet_val.pkl', 'rb') as fp:
-    #     lst_val = pickle.load(fp)
-
-    # lst_train = []
-    # labels_train = []
-    # labels_val = []
-    # for i,l in enumerate(lst):
-    #     if l not in lst_val:
-    #         lst_train.append(l)
-    #         labels_train.append(labels[i])
-        
-    # labels_val = [l[17:functions.get_sec_und(l)-1] for l in lst_val]
-
-    # label_vecs_train = np.zeros((len(lst_train), len(classes)))
-    # for i,lv in enumerate(label_vecs_train):
-    #     lv[class_enc[labels_train[i]]] = 1
-
-    # label_vecs_val = np.zeros((len(lst_val), len(classes)))
-    # for i,lv in enumerate(label_vecs_val):
-    #     lv[class_enc[labels_val[i]]] = 1
-
-    # lst_train, label_vecs_train = sklearn.utils.shuffle(lst_train, label_vecs_train)
-
+    
 
     def generator(lst, label_vecs):
         batch_size = BATCH_SIZE
@@ -101,7 +80,7 @@ if __name__ == '__main__':
 
         
 
-    filepath = "/home/data1/anshulg/model_new_dataset3.h5"
+    filepath = save_path+"/model.h5"
     checkpoint = ModelCheckpoint(filepath, monitor='loss', verbose=1, mode='min', period=1)
     callbacks_list = [checkpoint]
 
@@ -119,7 +98,7 @@ if __name__ == '__main__':
     plt.legend(['train', 'val'], loc='upper left')
     plt.ylabel('loss')
     plt.xlabel('epoch')
-    plt.savefig("model_loss_newdata3.png", bbox_inches = 'tight', pad_inches = 0)
+    plt.savefig(save_path+"/model_loss.png", bbox_inches = 'tight', pad_inches = 0)
     plt.close()
 
     plt.plot(history.history['acc'])
@@ -127,10 +106,10 @@ if __name__ == '__main__':
     plt.legend(['train', 'val'], loc='upper left')
     plt.ylabel('acc')
     plt.xlabel('epoch')
-    plt.savefig("model_acc_newdata3.png", bbox_inches = 'tight', pad_inches = 0)
+    plt.savefig(save_path+"/model_acc.png", bbox_inches = 'tight', pad_inches = 0)
     plt.close()
 
-    with open('/home/data1/anshulg/history_newdata3.json', 'w') as fp:
+    with open(save_path+'/history.json', 'w') as fp:
         json.dump(history.history, fp)
 
     stop = timeit.default_timer()
