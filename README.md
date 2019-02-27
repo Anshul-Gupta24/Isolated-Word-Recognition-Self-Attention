@@ -15,7 +15,7 @@
 
 ### Dataset
 
-#### Store your dataset as a dictionary in a pickle file. The dictionary should be in the form of \<filename\>: \<data\>.Enter the path for the dataset in the data_path variable in 'train_dataset.py'. 
+#### Store your dataset as a dictionary in a pickle file. The dictionary should be in the form of \<filename\>: \<datapoint\>.Enter the path for the dataset in the data_path variable in 'train_dataset.py'. 
 #### </br>
 
 ### Running the Code
