@@ -34,6 +34,7 @@ if __name__ == '__main__':
         data = pickle.load(fp) 
 
     lst = list(data.keys())
+    # Alternatively load labels from a file
     labels = [l[17:functions.get_sec_und(l)-1] for l in lst]
     classes = set(labels)
     class_enc = {}
